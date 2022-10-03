@@ -5,15 +5,26 @@ import (
 	"io"
 )
 
-func (suite *SkeletonCLITestSuite) TestlogWriter() {
+func (suite *GLTestSuite) TestlogWriter() {
 	suite.Implements((*io.Writer)(nil), logWriter("test"))
 }
 
-func (suite *SkeletonCLITestSuite) TestNewLogger() {
+func (suite *GLTestSuite) TestNewLogger() {
 	suite.IsType(&Logger{}, NewLogger(suite.Conf))
 }
 
-func (suite *SkeletonCLITestSuite) TestLoggerLogError() {
-	err := errors.New("test error")
-	suite.Error(suite.Logger.Error(err, ""))
+func (suite *GLTestSuite) TestAnd() {
+	suite.IsType(&Logger{}, suite.Logger.And("", ""))
+}
+
+func (suite *GLTestSuite) TestInfo() {
+	suite.IsType(&Logger{}, suite.Logger.Info(""))
+}
+
+func (suite *GLTestSuite) TestDebug() {
+	suite.IsType(&Logger{}, suite.Logger.Debug(""))
+}
+
+func (suite *GLTestSuite) TestLoggerError() {
+	suite.IsType(&Logger{}, suite.Logger.Error(errors.New(""), ""))
 }

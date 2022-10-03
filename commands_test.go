@@ -4,7 +4,9 @@ import (
 	cli "github.com/urfave/cli/v2"
 )
 
-func (suite *SkeletonCLITestSuite) TestVersionCommand() {
-	suite.IsType(&cli.Command{}, VersionCommand())
-	suite.IsType((cli.ActionFunc)(nil), VersionCommand().Action)
+func (suite *GLTestSuite) TestWhoAmI() {
+	suite.IsType(&cli.Command{}, WhoAmI())
+	suite.IsType((cli.ActionFunc)(nil), WhoAmI().Action)
+	err := WhoAmI().Action(nil)
+	suite.NoError(err)
 }

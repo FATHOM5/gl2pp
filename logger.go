@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
 	"io"
@@ -33,6 +33,7 @@ func NewLogger(conf Config) *Logger {
 			With().Timestamp().
 			Str("APP_NAME", conf.AppName).
 			Str("APP_ENV", conf.AppEnv).
+			Str("VERSION", Version()).
 			Logger(),
 	}
 }
@@ -40,12 +41,6 @@ func NewLogger(conf Config) *Logger {
 // And adds another string key/value pair to the context of the logger.
 func (logger *Logger) And(key, value string) *Logger {
 	logger.log = logger.log.With().Str(key, value).Logger()
-	return logger
-}
-
-// Dump complex values to the log under the given key.
-func (logger *Logger) Dump(key string, value interface{}) *Logger {
-	logger.log = logger.log.With().Interface(key, value).Logger()
 	return logger
 }
 
@@ -63,19 +58,19 @@ func (logger *Logger) Debug(msg string) *Logger {
 
 // Error writes to the error log when err is not nil. It also returns the
 // error, so it can be chained with other error handling code.
-func (logger *Logger) Error(err error, msg string) error {
+func (logger *Logger) Error(err error, msg string) *Logger {
 	if err != nil {
 		logger.log.Error().Err(err).Msg(msg)
 	}
 
-	return err
+	return logger
 }
 
 // Fatal writes to the error log when err is not nil, and then exits.
-func (logger *Logger) Fatal(err error, msg string) error {
+func (logger *Logger) Fatal(err error, msg string) *Logger {
 	if err != nil {
 		logger.log.Fatal().Err(err).Msg(msg)
 	}
 
-	return err
+	return logger
 }

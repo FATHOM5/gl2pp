@@ -1,29 +1,46 @@
 package main
 
 import (
+	"log"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
 	"github.com/urfave/cli"
 )
 
-type SkeletonCLITestSuite struct {
+type GLTestSuite struct {
 	suite.Suite
-	Logger *Logger
-	Conf   Config
-	Ctx    *cli.Context
+	Logger      *Logger
+	Conf        Config
+	Ctx         *cli.Context
+	GitlabToken string
+	BaseURL     string
+	Client      *Client
 }
 
-func (suite *SkeletonCLITestSuite) SetupTest() {
+func (suite *GLTestSuite) SetupTest() {
 	suite.Conf, _ = NewConfig()
 	suite.Logger = NewLogger(suite.Conf)
 	suite.Ctx = &cli.Context{}
+	suite.GitlabToken = os.Getenv("GITLAB_CI_TOKEN")
+	suite.BaseURL = "https://gitlab.fathom5.work"
+
+	client, err := NewClient(suite.GitlabToken, nil)
+	if err != nil {
+		log.Fatalf("failed to create NewClient: %s", err)
+	}
+	suite.Client = client
+
+	// set default values for global flags
+	baseURL = suite.BaseURL
+	token = suite.GitlabToken
 }
 
-func (suite *SkeletonCLITestSuite) TestVersion() {
+func (suite *GLTestSuite) TestVersion() {
 	suite.NotEqual("", Version())
 }
 
-func TestSkeletonCLITestSuite(t *testing.T) {
-	suite.Run(t, new(SkeletonCLITestSuite))
+func TestGLTestSuite(t *testing.T) {
+	suite.Run(t, new(GLTestSuite))
 }

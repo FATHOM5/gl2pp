@@ -26,4 +26,7 @@ clean:
 
 # run tests
 test:
-	@ APP_ENV=test go test -v ./...
+	@ APP_ENV=test go test -v -coverprofile=coverage.txt ./...
+
+cover: test
+	@ go tool cover -func=coverage.txt

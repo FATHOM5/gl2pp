@@ -11,6 +11,10 @@ var (
 	logger *Logger
 
 	app = cli.NewApp()
+
+	// global flags
+	baseURL string
+	token   string
 )
 
 // Version returns the SemVer for this app.
@@ -32,15 +36,21 @@ func init() {
 }
 
 func main() {
-	app.Flags = []cli.Flag{}
+	app.Flags = []cli.Flag{
+		&cli.StringFlag{
+			Name:        "base-url",
+			Aliases:     []string{"url"},
+			Usage:       "set the base url of the gitlab instance you want to use",
+			EnvVars:     []string{"GITLAB_BASE_URL"},
+			Value:       "https://gitlab.fathom5.work",
+			Destination: &baseURL,
+		},
+	}
 
 	// add commands in commends.go
 	app.Commands = []*cli.Command{
-		VersionCommand(),
+		WhoAmI(),
 	}
 
-	err := app.Run(os.Args)
-	if err != nil {
-		logger.Fatal(err, "failed to Run")
-	}
+	app.Run(os.Args)
 }

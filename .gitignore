@@ -304,6 +304,7 @@ $RECYCLE.BIN/
 package-lock.json
 
 bin/
+coverage.txt
 
 # must be last
 !.gitkeep

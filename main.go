@@ -15,11 +15,14 @@ var (
 	// global flags
 	baseURL string
 	token   string
+	//other flags
+	gid string
+	iid string
 )
 
 // Version returns the SemVer for this app.
 func Version() string {
-	return "v0.0.1"
+	return "v0.0.3"
 }
 
 func init() {
@@ -45,11 +48,21 @@ func main() {
 			Value:       "https://gitlab.fathom5.work",
 			Destination: &baseURL,
 		},
+		&cli.StringFlag{
+			Name:        "token",
+			Aliases:     []string{"t"},
+			Usage:       "your personal access token; used to authenticate against the gitlab api",
+			EnvVars:     []string{"GITLAB_TOKEN", "GITLAB_CI_TOKEN"},
+			Destination: &token,
+		},
 	}
 
 	// add commands in commends.go
 	app.Commands = []*cli.Command{
 		WhoAmI(),
+		ListGroups(),
+		ListGroupIterations(),
+		ListGroupIssues(),
 	}
 
 	app.Run(os.Args)

@@ -50,7 +50,7 @@ func WhoAmI() *cli.Command {
 func ListGroups() *cli.Command {
 	return &cli.Command{
 		Name:    "list-groups",
-		Aliases: []string{"lgrp"},
+		Aliases: []string{"grp"},
 		Usage:   "Show groups for current logged in user",
 		Action: func(c *cli.Context) error {
 			//start := time.Now()
@@ -86,11 +86,12 @@ func ListGroups() *cli.Command {
 func ListGroupIterations() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-iterations",
-		Aliases: []string{"lgrpit"},
+		Aliases: []string{"it"},
 		Usage:   "Show group iterations for current logged in user",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",
+				Aliases:     []string{"gid"},
 				Usage:       "This flag supplies the group id from GitLab to the get iterations",
 				Destination: &gid,
 			},
@@ -116,7 +117,7 @@ func ListGroupIterations() *cli.Command {
 
 			for _, iteration := range iterations {
 				fmt.Printf("GroupIterationTitle: %s\n", iteration.Title)
-				fmt.Printf("GroupIterationIID: %d\n", iteration.IID)
+				fmt.Printf("GroupIterationID: %d\n", iteration.ID)
 				fmt.Printf("GroupIterationWebURL: %s\n", iteration.WebURL)
 			}
 
@@ -128,18 +129,26 @@ func ListGroupIterations() *cli.Command {
 func ListGroupIssues() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-issues",
-		Aliases: []string{"lgrpissues"},
+		Aliases: []string{"iss"},
 		Usage:   "Show group issues for the current logged in user",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",
+				Aliases:     []string{"gid"},
 				Usage:       "This flag supplies the group-id to the list group issues as an arguement",
 				Destination: &gid,
 			},
 			&cli.StringFlag{
 				Name:        "iteration-id",
+				Aliases:     []string{"iid"},
 				Usage:       "This flag supplies the iteration-id to the list group issues as an arguement",
 				Destination: &iid,
+			},
+			&cli.StringFlag{
+				Name:        "output",
+				Aliases:     []string{"o"},
+				Usage:       "Provides filename for output",
+				Destination: &filename,
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -168,11 +177,21 @@ func ListGroupIssues() *cli.Command {
 			if err != nil {
 				return cli.Exit(fmt.Sprintf("Failed to list group issues: %s", err), 1)
 			}
+
+			if filename != "" {
+				outissues := translate(issues)
+				err = Exporttocsv(outissues, filename)
+				if err != nil {
+					return cli.Exit(fmt.Sprintf("Failed to save file: %s", err), 1)
+				}
+				fmt.Printf("File with issues saved succesfully to %s", filename)
+				return nil
+			}
 			for _, issue := range issues {
 				fmt.Printf("GroupIssuesTitle: %s\n", issue.Title)
-				fmt.Printf("GroupIssuesID: %d\n", issue.ID)
+				// fmt.Printf("GroupIssuesID: %d\n", issue.ID)
 				fmt.Printf("GroupIssuesIID: %d\n", issue.IID)
-				fmt.Printf("GroupIssuesDescription: %s\n", issue.Description)
+				// fmt.Printf("GroupIssuesDescription: %s\n", issue.Description)
 				fmt.Printf("GroupIssuesProjectID: %d\n", issue.ProjectID)
 				fmt.Printf("GroupIssuesEpic: %p\n", issue.Epic)
 				fmt.Printf("GroupIssuesWeight: %d\n", issue.Weight)

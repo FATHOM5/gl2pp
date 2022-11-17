@@ -305,6 +305,8 @@ package-lock.json
 
 bin/
 coverage.txt
+gl
+*.csv
 
 # must be last
 !.gitkeep

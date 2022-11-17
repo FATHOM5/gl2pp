@@ -16,8 +16,9 @@ var (
 	baseURL string
 	token   string
 	//other flags
-	gid string
-	iid string
+	gid      string
+	iid      string
+	filename string
 )
 
 // Version returns the SemVer for this app.

@@ -6,9 +6,8 @@ require (
 	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.0
-	github.com/urfave/cli v1.22.5
-	github.com/urfave/cli/v2 v2.17.1
-	github.com/xanzy/go-gitlab v0.73.1
+	github.com/urfave/cli/v2 v2.23.5
+	github.com/xanzy/go-gitlab v0.74.0
 )
 
 require (
@@ -23,10 +22,10 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/net v0.0.0-20221004154528-8021a29435af // indirect
-	golang.org/x/oauth2 v0.0.0-20221006150949-b44042a4b9c1 // indirect
-	golang.org/x/sys v0.0.0-20221006211917-84dc82d7e875 // indirect
-	golang.org/x/time v0.0.0-20220922220347-f3bd1da661af // indirect
+	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/oauth2 v0.2.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	golang.org/x/time v0.2.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

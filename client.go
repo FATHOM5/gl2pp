@@ -106,12 +106,12 @@ func (c *Client) ListGroupIterations(gid string) ([]*gitlab.GroupIteration, erro
 
 func (c *Client) ListGroupIssues(gid string, iteration int) ([]*gitlab.Issue, error) {
 	var (
-		grpiss *gitlab.ListGroupIssuesOptions
+		grpiss gitlab.ListGroupIssuesOptions
 		iss    []*gitlab.Issue
 		err    error
 	)
 	grpiss.IterationID = gitlab.Int(iteration)
-	iss, _, err = c.GL.Issues.ListGroupIssues(gid, grpiss)
+	iss, _, err = c.GL.Issues.ListGroupIssues(gid, &grpiss)
 	return iss, err
 
 }

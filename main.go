@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-
+	//"github.com/jedib0t/go-pretty/v6/table"
 	cli "github.com/urfave/cli/v2"
+	"os"
 )
 
 var (
@@ -23,7 +23,7 @@ var (
 
 // Version returns the SemVer for this app.
 func Version() string {
-	return "v0.0.3"
+	return "v0.0.4"
 }
 
 func init() {

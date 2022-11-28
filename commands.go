@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"time"
 
+	//table "github.com/jedib0t/go-pretty/v6/table"
+
 	cli "github.com/urfave/cli/v2"
 )
 
@@ -71,12 +73,7 @@ func ListGroups() *cli.Command {
 				return cli.Exit(fmt.Sprintf("failed to list current groups: %s", err), 1)
 
 			}
-
-			for _, group := range groups {
-				fmt.Printf("GroupName: %s\n", group.Name)
-				fmt.Printf("GroupID: %d\n", group.ID)
-				fmt.Printf("GroupWebURL: %s\n", group.WebURL)
-			}
+			PrintGroupsTable(groups)
 
 			return nil
 		},
@@ -87,7 +84,7 @@ func ListGroupIterations() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-iterations",
 		Aliases: []string{"it"},
-		Usage:   "Show group iterations for current logged in user",
+		Usage:   "gl it --group-id=<value> Show group iterations for the corresponding group-id",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",
@@ -115,11 +112,7 @@ func ListGroupIterations() *cli.Command {
 				return cli.Exit(fmt.Sprintf("failed to list group iterations: %s", err), 1)
 			}
 
-			for _, iteration := range iterations {
-				fmt.Printf("GroupIterationTitle: %s\n", iteration.Title)
-				fmt.Printf("GroupIterationID: %d\n", iteration.ID)
-				fmt.Printf("GroupIterationWebURL: %s\n", iteration.WebURL)
-			}
+			PrintItterationsTable(iterations)
 
 			return nil
 		},
@@ -130,7 +123,7 @@ func ListGroupIssues() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-issues",
 		Aliases: []string{"iss"},
-		Usage:   "Show group issues for the current logged in user",
+		Usage:   "gl iss --group-id=<value>  --iteration-id=<value>  --output=<value> Show group issues for the current selected group-id/iteration and give a filename for the output file",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",
@@ -187,17 +180,7 @@ func ListGroupIssues() *cli.Command {
 				fmt.Printf("File with issues saved succesfully to %s", filename)
 				return nil
 			}
-			for _, issue := range issues {
-				fmt.Printf("GroupIssuesTitle: %s\n", issue.Title)
-				// fmt.Printf("GroupIssuesID: %d\n", issue.ID)
-				fmt.Printf("GroupIssuesIID: %d\n", issue.IID)
-				// fmt.Printf("GroupIssuesDescription: %s\n", issue.Description)
-				fmt.Printf("GroupIssuesProjectID: %d\n", issue.ProjectID)
-				fmt.Printf("GroupIssuesEpic: %p\n", issue.Epic)
-				fmt.Printf("GroupIssuesWeight: %d\n", issue.Weight)
-				fmt.Printf("GroupIssuesWeburl: %s\n", issue.WebURL)
-			}
-
+			PrintIssuesTable(issues)
 			return nil
 		},
 	}

@@ -88,6 +88,7 @@ func (c *Client) ListGroups() ([]*gitlab.Group, error) {
 	)
 	gs, _, err = c.GL.Groups.ListGroups(&grpopt)
 	return gs, err
+
 }
 
 var state *string

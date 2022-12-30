@@ -5,8 +5,6 @@ import (
 	"strconv"
 	"time"
 
-	//table "github.com/jedib0t/go-pretty/v6/table"
-
 	cli "github.com/urfave/cli/v2"
 )
 
@@ -49,17 +47,13 @@ func WhoAmI() *cli.Command {
 	}
 }
 
+// ListGroups lists the groups the current user has access to on Gitlab.
 func ListGroups() *cli.Command {
 	return &cli.Command{
 		Name:    "list-groups",
 		Aliases: []string{"grp"},
 		Usage:   "Show groups for current logged in user",
 		Action: func(c *cli.Context) error {
-			//start := time.Now()
-			// if c != nil {
-			// 	fmt.Printf("%s,\n, \n", c.Command.Name)
-			// }
-
 			if baseURL == "" {
 				baseURL = DefaultURL
 			}
@@ -80,6 +74,7 @@ func ListGroups() *cli.Command {
 	}
 }
 
+// ListGroupIterations lists sprints for the given group ID.
 func ListGroupIterations() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-iterations",
@@ -94,8 +89,6 @@ func ListGroupIterations() *cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) error {
-			//start := time.Now()
-
 			if baseURL == "" {
 				baseURL = DefaultURL
 			}
@@ -119,6 +112,7 @@ func ListGroupIterations() *cli.Command {
 	}
 }
 
+// ListGroupIssues lists the issues for the given group ID and iteration ID.
 func ListGroupIssues() *cli.Command {
 	return &cli.Command{
 		Name:    "list-group-issues",
@@ -145,8 +139,6 @@ func ListGroupIssues() *cli.Command {
 			},
 		},
 		Action: func(c *cli.Context) error {
-			//start := time.Now()
-
 			if baseURL == "" {
 				baseURL = DefaultURL
 			}

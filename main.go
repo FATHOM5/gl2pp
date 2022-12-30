@@ -1,9 +1,9 @@
 package main
 
 import (
-	//"github.com/jedib0t/go-pretty/v6/table"
-	cli "github.com/urfave/cli/v2"
 	"os"
+
+	cli "github.com/urfave/cli/v2"
 )
 
 var (
@@ -15,15 +15,20 @@ var (
 	// global flags
 	baseURL string
 	token   string
+
 	//other flags
 	gid      string
 	iid      string
 	filename string
 )
 
+// SemVer is a string reprsentation of the Semantic Version. This will be injected
+// during build time using the value from `git describe`.
+var SemVer = "v0.0.0-development"
+
 // Version returns the SemVer for this app.
 func Version() string {
-	return "v0.0.4"
+	return SemVer
 }
 
 func init() {
@@ -58,7 +63,6 @@ func main() {
 		},
 	}
 
-	// add commands in commends.go
 	app.Commands = []*cli.Command{
 		WhoAmI(),
 		ListGroups(),

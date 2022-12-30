@@ -1,51 +1,7 @@
-image: docker:20.10
+default:
+  image: registry.fathom5.work/stdlib/go-builder:latest
 
 include:
-  - template: Security/SAST.gitlab-ci.yml
-
-stages:
-- test
-- build
-
-variables:
-  DOCKER_HOST: tcp://docker:2376
-  DOCKER_TLS_VERIFY: 1
-  DOCKER_TLS_CERTDIR: "/certs"
-  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
-  GOPRIVATE: "*fathom5.work*"
-  SAST_SEMGREP_METRICS: "false"
-  SAST_EXCLUDED_ANALYZERS: bandit, brakeman, eslint, flawfinder, mobsf, nodejs-scan, phpcs-security-audit, pmd-apex, security-code-scan, sobelow, spotbugs
-
-sast:
-  stage: test
-  before_script:
-    - printf "machine gitlab.fathom5.work\n
-      login ${GITLAB_CI_USER}\n
-      password ${GITLAB_CI_TOKEN}\n"
-      >> ~/.netrc
-    - chmod 600 ~/.netrc
-
-
-go-test:
-  image: registry.fathom5.work/stdlib/go-builder:latest
-  stage: test
-  before_script:
-    - printf "machine gitlab.fathom5.work\n
-      login ${GITLAB_CI_USER}\n
-      password ${GITLAB_CI_TOKEN}\n"
-      >> ~/.netrc
-    - chmod 600 ~/.netrc
-  script: 
-    - make cover
-
-build:
-  image: registry.fathom5.work/stdlib/go-builder:latest
-  stage: build
-  before_script:
-    - printf "machine gitlab.fathom5.work\n
-      login ${GITLAB_CI_USER}\n
-      password ${GITLAB_CI_TOKEN}\n"
-      >> ~/.netrc
-    - chmod 600 ~/.netrc
-  script: 
-    - make build
+  - project: "fathom5/templates"
+    ref: "v0.0.28"
+    file: "gitlab-ci/pipelines/go-cli.yml"

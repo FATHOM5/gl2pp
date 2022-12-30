@@ -8,7 +8,7 @@ import "github.com/caarlos0/env"
 type Config struct {
 	AppName string `env:"APP_NAME" envDefault:"gl"`
 	AppEnv  string `env:"APP_ENV" envDefault:"development"`
-	AppDesc string `env:"APP_DESC" envDefault:"fathom5's gitlab cli"`
+	AppDesc string `env:"APP_DESC" envDefault:"Fathom5's gitlab tool"`
 }
 
 // NewConfig returns an instance of Config, with values loaded from ENV vars.

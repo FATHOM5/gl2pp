@@ -1,4 +1,4 @@
-# :white_sun_cloud: gl2pp
+# :sun_behind_small_cloud: gl2pp
 
 `gl2pp` allows you to export the issues in a group iteration from gitlab in a
 format that [PlanningPoker.com](https://planningpoker.com/) understands.

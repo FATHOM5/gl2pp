@@ -11,9 +11,10 @@ import (
 // WhoAmI shows you the currently logged in user
 func WhoAmI() *cli.Command {
 	return &cli.Command{
-		Name:    "whoami",
-		Aliases: []string{"me"},
-		Usage:   "show the currently logged in user",
+		Name:      "whoami",
+		Aliases:   []string{"me"},
+		ArgsUsage: "gl2pp whoami",
+		Usage:     "show the currently logged in user",
 		Action: func(c *cli.Context) error {
 			start := time.Now()
 			if c != nil {
@@ -50,9 +51,10 @@ func WhoAmI() *cli.Command {
 // ListGroups lists the groups the current user has access to on Gitlab.
 func ListGroups() *cli.Command {
 	return &cli.Command{
-		Name:    "list-groups",
-		Aliases: []string{"grp"},
-		Usage:   "Show groups for current logged in user",
+		Name:      "list-groups",
+		Aliases:   []string{"grp"},
+		ArgsUsage: "gl2pp list-groups",
+		Usage:     "Show groups for current logged in user",
 		Action: func(c *cli.Context) error {
 			if baseURL == "" {
 				baseURL = DefaultURL
@@ -77,9 +79,10 @@ func ListGroups() *cli.Command {
 // ListGroupIterations lists sprints for the given group ID.
 func ListGroupIterations() *cli.Command {
 	return &cli.Command{
-		Name:    "list-group-iterations",
-		Aliases: []string{"it"},
-		Usage:   "gl it --group-id=<value> Show group iterations for the corresponding group-id",
+		Name:      "list-group-iterations",
+		Aliases:   []string{"it"},
+		ArgsUsage: "gl2pp it --group-id=<value>",
+		Usage:     "Show group iterations for the corresponding group-id",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",
@@ -115,9 +118,10 @@ func ListGroupIterations() *cli.Command {
 // ListGroupIssues lists the issues for the given group ID and iteration ID.
 func ListGroupIssues() *cli.Command {
 	return &cli.Command{
-		Name:    "list-group-issues",
-		Aliases: []string{"iss"},
-		Usage:   "gl iss --group-id=<value>  --iteration-id=<value>  --output=<value> Show group issues for the current selected group-id/iteration and give a filename for the output file",
+		Name:      "list-group-issues",
+		Aliases:   []string{"iss"},
+		ArgsUsage: "gl2pp iss --group-id=<value>  --iteration-id=<value>  --output=<value>",
+		Usage:     "Show group issues for the current selected group-id/iteration and give a filename for the output file",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "group-id",

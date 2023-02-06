@@ -1,45 +1,104 @@
-# :white_sun_cloud: tools/gl
+# :white_sun_cloud: gl2pp
 
-GitLab cli for automating various tasks relevant to our agile teams.
+`gl2pp` allows you to export the issues in a group iteration from gitlab in a
+format that [PlanningPoker.com](https://planningpoker.com/) understands.
 
----
-
-## Getting Started
-
-Complete [onboarding](https://github.com/fathom5/codex/wiki/Onboarding), then run:
-
-    git clone https://github.com/fathom5/skeleton-go-cli.git ${F5_DIR}/tools/gl
-    cd ${F5_DIR}/tools/gl
-    make build
+You will need a gitlab.com (or self-hosted instance) with either a Premium or Ultimate
+license, as this tool exports issues scoped by a group's iteration. [More
+Info](https://about.gitlab.com/pricing/).
 
 ---
+
+# Quick Start Guide
+
+    go install github.com/FATHOM5/gl2pp
+    gl2pp --version
+
+## Getting Help
+
+Display a list of all subcommands and global flags:
+
+    gl2pp help
+
+Display the help text for a given subcommand:
+
+    gl2pp help {subcommand}
+
+e.g. `gl2pp help whoami`
+
+## Configuration
+
+To save time, set the following ENV vars, which will be used as the default
+values for the global flags:
+
+  - `GITLAB_BASE_URL` (defaults to: https://gitlab.com/)
+  - `GITLAB_TOKEN` (no default)
+    - Create a [Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
 
 ## Return the current logged in user
 
-bin/gl whoami
+    gl2pp whoami
 
-## List the groups assigned to that user
+## List the gitlab groups you have access to
 
-bin/gl list-groups
+    gl2pp list-groups
+
+_Make note of the {GROUP_ID}. You'll need this in the other commands._
 
 ## List the group iterations using the "group id" from list-groups
 
-bin/gl list-group-iterations --group-id=478 (from list groups)
+    gl2pp list-group-iterations --group-id={GROUP_ID}
 
-## List the group issues using the "group id" and the "iid" from list-group-iterations
+_Make note of the {ITERATION_ID}. You'll need this in the other commands._
 
-bin/gl list-group-issues --group-id=478 --iid=114 (from list group iterations)
+## List issues from the iteration
 
-## Output issues to a .CSV file
+    gl2pp list-group-issues --group-id={GROUP_ID} --iteration-id={ITERATION_ID}
 
-bin/gl list-group-issues --group-id=478 --iteration-id=114 --output filenameyouchoose.csv (with filename of your choice)
+_Make note of the {ITERATION_ID}. You'll need this in the other commands._
 
-## Directions
+## Export the issues for PlanningPoker.com
 
-After saving the build files to your local through a git clone from https://gitlab.fathom5.work/tools/gl, store the directory within the path of your local environment variables.
+    gl2pp list-group-issues \
+        --group-id={GROUP_ID} \
+        --iteration-id={ITERATION_ID} \
+        --output planningpoker.csv
 
-Navigate to 'GL' in the terminal and run "make build"
+---
 
-Running "gl/bin whoami" returns the current logged in user
+## Want to hack on this?
 
-Once confirming the correct user is logged in via the returned keys, the client manages all the API interactions with GitLab
+The following tools are required in your development environment:
+
+  - Install [go v1.19+](https://go.dev/)
+  - Install [mmake](https://github.com/tj/mmake), and alias it to `make`
+  - Install [upx](https://upx.github.io/)
+
+### Getting Started
+
+    git clone https://github.com/FATHOM5/gl2pp.git
+    cd gl2pp
+    make init
+
+### Build It
+
+    make build
+
+### Test It
+
+    make test
+
+### Install It
+
+    make install
+
+### Uninstall It
+
+    make Uninstall
+
+### Other Commands
+
+    make
+
+---
+

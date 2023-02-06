@@ -6,9 +6,9 @@ import "github.com/caarlos0/env"
 // (where possible). Required configuration will throw a Fatal error if they
 // are missing.
 type Config struct {
-	AppName string `env:"APP_NAME" envDefault:"gl"`
+	AppName string `env:"APP_NAME" envDefault:"gl2pp"`
 	AppEnv  string `env:"APP_ENV" envDefault:"development"`
-	AppDesc string `env:"APP_DESC" envDefault:"Fathom5's gitlab tool"`
+	AppDesc string `env:"APP_DESC" envDefault:"gitlab to planningpoker.com exporter"`
 }
 
 // NewConfig returns an instance of Config, with values loaded from ENV vars.

@@ -1,4 +1,4 @@
-module gitlab.fathom5.work/tools/gl
+module github.com/FATHOM5/gl2pp
 
 go 1.19
 

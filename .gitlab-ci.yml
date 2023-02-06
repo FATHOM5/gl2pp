@@ -1,7 +1,0 @@
-default:
-  image: registry.fathom5.work/stdlib/go-builder:latest
-
-include:
-  - project: "fathom5/templates"
-    ref: "v0.0.28"
-    file: "gitlab-ci/pipelines/go-cli.yml"

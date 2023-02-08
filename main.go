@@ -51,14 +51,14 @@ func main() {
 			Aliases:     []string{"url"},
 			Usage:       "set the base url of the gitlab instance you want to use",
 			EnvVars:     []string{"GITLAB_BASE_URL"},
-			Value:       "https://gitlab.fathom5.work",
+			Value:       "https://github.com",
 			Destination: &baseURL,
 		},
 		&cli.StringFlag{
 			Name:        "token",
 			Aliases:     []string{"t"},
 			Usage:       "your personal access token; used to authenticate against the gitlab api",
-			EnvVars:     []string{"GITLAB_TOKEN", "GITLAB_CI_TOKEN"},
+			EnvVars:     []string{"GITLAB_TOKEN"},
 			Destination: &token,
 		},
 	}
